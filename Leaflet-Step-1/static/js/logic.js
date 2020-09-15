@@ -53,7 +53,7 @@ d3.json(url, function(response) {
             });
         }
     }).bindPopup(function (layer) {
-            return (layer.feature.properties.place);
+            return (`${layer.feature.properties.place} <br> Magnitude: ${layer.feature.properties.mag}`);
         }).addTo(myMap);
     
 });

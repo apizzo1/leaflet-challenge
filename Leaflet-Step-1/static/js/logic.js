@@ -24,24 +24,6 @@ d3.json(url, function(response) {
  
     console.log(response);
 
-  
-    // L.geoJSON(response, {
-    //     style: function (feature) {
-    //         return {color: feature.properties.mag};
-    //     }
-    // }).bindPopup(function (layer) {
-    //     return layer.feature.properties.place;
-    // }).addTo(myMap);
-
-    // var geojsonMarkerOptions = {
-    //     radius: feature.properties.mag,
-    //     fillColor: "blue",
-    //     color: "red",
-    //     weight: 20,
-    //     opacity: 1,
-    //     fillOpacity: 0.8
-    // };
-
     // create function for marker color
     // use ColorBrewer and code from https://leafletjs.com/examples/choropleth/
     function getColor(mag) {
@@ -49,11 +31,10 @@ d3.json(url, function(response) {
                mag > 3 ? '#f03b20' :
                mag > 2 ? '#fd8d3c' :
                mag > 1 ? '#fecc5c' :
-            //    mag > 0 ? '#FD8D3C' :
                           '#ffffb2';
     }
     
-    
+    // plot circle markers based on latitude and longitude from geoJSON
     L.geoJSON(response, {
         pointToLayer: function (feature, latlng) {
             return L.circleMarker(latlng, {
@@ -65,8 +46,32 @@ d3.json(url, function(response) {
                 fillOpacity: 0.8
             });
         }
+        // add popup with earthquake information
     }).bindPopup(function (layer) {
-            return (`${layer.feature.properties.place} <br> Magnitude: ${layer.feature.properties.mag}`);
+            return (`Location: ${layer.feature.properties.place} <br> Magnitude: ${layer.feature.properties.mag}`);
         }).addTo(myMap);
+
+        // Add map legend
+        // starter code from https://leafletjs.com/examples/choropleth/
+
+    var legend = L.control({position: 'bottomright'});
+
+    legend.onAdd = function (map) {
+
+        var div = L.DomUtil.create('div', 'info legend'),
+            magnitudes = [0, 1, 2, 3, 4, 5],
+            labels = [];
+
+        // loop through our magnitude intervals and generate a label with a colored square for each interval
+        for (var i = 0; i < magnitudes.length-1; i++) {
+            div.innerHTML +=
+                '<i style="background:' + getColor(magnitudes[i]+1) + '"></i> ' +
+                magnitudes[i] + (magnitudes[i + 1] ? '&ndash;' + magnitudes[i + 1] + '<br>' : '+');
+        }
+
+        return div;
+    };
+
+    legend.addTo(myMap);
     
 });

@@ -41,13 +41,26 @@ d3.json(url, function(response) {
     //     opacity: 1,
     //     fillOpacity: 0.8
     // };
+
+    // create function for marker color
+    // use ColorBrewer and code from https://leafletjs.com/examples/choropleth/
+    function getColor(mag) {
+        return mag > 4 ? '#bd0026' :
+               mag > 3 ? '#f03b20' :
+               mag > 2 ? '#fd8d3c' :
+               mag > 1 ? '#fecc5c' :
+            //    mag > 0 ? '#FD8D3C' :
+                          '#ffffb2';
+    }
+    
     
     L.geoJSON(response, {
         pointToLayer: function (feature, latlng) {
             return L.circleMarker(latlng, {
-                radius: feature.properties.mag*10,
-                color: feature.properties.mag,
+                radius: feature.properties.mag*5,
+                color: getColor(feature.properties.mag),
                 // weight: 20,
+                // color: "black",
                 opacity: 1,
                 fillOpacity: 0.8
             });

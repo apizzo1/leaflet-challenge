@@ -27,10 +27,11 @@ d3.json(url, function(response) {
     // create function for marker color
     // use ColorBrewer and code from https://leafletjs.com/examples/choropleth/
     function getColor(mag) {
-        return mag > 4 ? '#bd0026' :
-               mag > 3 ? '#f03b20' :
-               mag > 2 ? '#fd8d3c' :
-               mag > 1 ? '#fecc5c' :
+        return mag > 5 ? '#bd0026':
+               mag > 4 ? '#f03b20' :
+               mag > 3 ? '#fd8d3c' :
+               mag > 2 ? '#feb24c' :
+               mag > 1 ? '#fed976' :
                           '#ffffb2';
     }
     
@@ -63,7 +64,7 @@ d3.json(url, function(response) {
             labels = [];
 
         // loop through our magnitude intervals and generate a label with a colored square for each interval
-        for (var i = 0; i < magnitudes.length-1; i++) {
+        for (var i = 0; i < magnitudes.length; i++) {
             div.innerHTML +=
                 '<i style="background:' + getColor(magnitudes[i]+1) + '"></i> ' +
                 magnitudes[i] + (magnitudes[i + 1] ? '&ndash;' + magnitudes[i + 1] + '<br>' : '+');

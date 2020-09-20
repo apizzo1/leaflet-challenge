@@ -21,5 +21,11 @@ Both folders hold files with the same names:
 * Static folder containing: 
   * js folder containing logic.js file - this file holds all functionality to bring in geoJSON data, create markers and layers, and render this information on the index.html
   * css folder containing the style.css which formats the map on the index.html and the legend
+ 
+Please note: Mapbox requires an API key to utilize the map tiles - this key was brought in using a config.js file in the js folders of each Leaflet Step folder with format: 
+
+API_KEY = "Your API Key here";
+
+This file was added to the gitignore so the API key remained private.
 
 

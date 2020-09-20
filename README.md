@@ -19,6 +19,7 @@ Both folders hold files with the same names:
 
 * index.html will render the map in a browser window - this can be viewed using a live server or by using command python -m http.server in command line
 * Static folder containing: 
-  * js folder containing logic.js file
+  * js folder containing logic.js file - this file holds all functionality to bring in geoJSON data, create markers and layers, and render this information on the index.html
+  * css folder containing the style.css which formats the map on the index.html and the legend
 
 

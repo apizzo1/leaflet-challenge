@@ -2,7 +2,7 @@
 
 ## Map Details
 
-This challenge was to create a map of earthquake locations using Leaflet, with tile functionality from Mapbox. Each map shows earthquakes using a circular marker, with radius and color indicating the magnitude of the earthquake. The maps allow the user to select a specific earthquake marker and see data (location and magnitude details). Data sources include:
+This challenge was to create a map of earthquake locations using Leaflet, with tile functionality from Mapbox. Each map shows earthquakes around the world using circular markers, with radius and color indicating the magnitude of the earthquake. The maps allow the user to select a specific earthquake marker and see data (location and magnitude details). Data sources include:
 * https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php
 * https://github.com/fraxen/tectonicplates/blob/master/GeoJSON/PB2002_boundaries.json
 
@@ -12,6 +12,7 @@ Leaflet-Step-1 folder holds code to produce a basic map that allows the user to 
 
 Leaflet-Step-2 folder holds code to produce a map with multiple opportunities of user interaction: the user can choose between 3 different base maps (street, satellite, or grayscale) and two different layers (earthquakes or fault lines). Only one base map can be chosen at a time, and one must be chosen at all times. The overlay maps, on the other hand, can be toggled as desired by the user (one displayed at a time, both displayed, or neither displayed). Adding this extra functionality allows the user to investigate the data in a unique way. For example, viewing the earthquakes and fault lines on the same map at the same time allows the user to notice that a high percentage of earthquakes occur in close proximity to fault lines.
 
+Both maps allow the user to zoom in and out as desired, as well as drag the map to a location of interest.
 
 ### Files Included
 

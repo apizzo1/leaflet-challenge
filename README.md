@@ -10,7 +10,7 @@ This challenge was to create a map of earthquake locations using Leaflet, with t
 
 Leaflet-Step-1 folder holds code to produce a basic map that allows the user to select the earthquake points, but does not have any layer functionality.
 
-Leaflet-Step-2 folder holds code to produce a map with multiple opportunities of user interaction: the user can choose between 3 different base maps (street, satellite, or grayscale) and two different layers (earthquakes or fault lines). Only one base map can be chosen at a time, and one must be chosen at all times. The overlay maps, on the other hand, can be toggled as desired by the user (one displayed at a time, both displayed, or neither displayed).
+Leaflet-Step-2 folder holds code to produce a map with multiple opportunities of user interaction: the user can choose between 3 different base maps (street, satellite, or grayscale) and two different layers (earthquakes or fault lines). Only one base map can be chosen at a time, and one must be chosen at all times. The overlay maps, on the other hand, can be toggled as desired by the user (one displayed at a time, both displayed, or neither displayed). Adding this extra functionality allows the user to investigate the data in a unique way. For example, viewing the earthquakes and fault lines on the same map at the same time allows the user to notice that a high percentage of earthquakes occur in close proximity to fault lines.
 
 
 ### Files Included
@@ -24,7 +24,7 @@ Both folders hold files with the same names:
  
 Please note: Mapbox requires an API key to utilize the map tiles - this key was brought in using a config.js file in the js folders of each Leaflet Step folder with format: 
 
-API_KEY = "Your API Key here";
+API_KEY = "Your API Key Here";
 
 This file was added to the gitignore so the API key remained private.
 

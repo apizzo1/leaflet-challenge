@@ -70,27 +70,46 @@ d3.json(url, function(response) {
     console.log(response["features"]);
 
     // plot circle markers based on latitude and longitude from geoJSON
+
     var earthquakes = [];
 
+    // L.geoJSON(response, {
+        
+    //     pointToLayer: function (feature, latlng) {
+    //         earthquakes.push(
+    //              L.circleMarker(latlng, {
+    //                 radius:feature.properties.mag*5,
+    //                 color: getColor(feature.properties.mag),
+    //                 opacity:1,
+    //                 fillOpacity: 0.8
+    //             })
+    //             .bindPopup(function (layer) {
+    //                 console.log(`Testing${layer}`);
+    //                 return (`Location: <br> Magnitude: `);
+    //             })
+    //         )
+    //     }
+    // })
 
     L.geoJSON(response, {
+        
         pointToLayer: function (feature, latlng) {
-            earthquakes.push(
-                L.circleMarker(latlng, {
+            // earthquakes.push(
+                 return L.circleMarker(latlng, {
                     radius:feature.properties.mag*5,
                     color: getColor(feature.properties.mag),
                     opacity:1,
                     fillOpacity: 0.8
-                })
-                // }).bindPopup(function (layer) {
-                    // return (`Location:  <br> Magnitude: ${layer.features.properties.mag}`);
-                // })
-            )
-        }
+                })},
+                onEachFeature: function (feature, layer) {
+                    layer.bindPopup(`Location: ${feature.properties.place}<br>Magnitude: ${feature.properties.mag}`),
+                    earthquakes.push(layer)
+                    
+                }
+    
     })
 
-
-
+  
    
 
     // make earthquake markers array into a layer group
@@ -115,7 +134,7 @@ d3.json(url, function(response) {
             // center of the United States
             center: [39.8, -98.6], 
             zoom: 5,
-            layers: [street, earthquakeLayer]
+            layers: [street, tectonic]
         });
 
         // add layer control to the map

@@ -1,7 +1,8 @@
 
 
-// choose dataset
+// choose dataset (all Earthquakes from past 7 days)
 var url ="https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
+// reference to fault line booundaries data
 var boundaries_url = "https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json";
 
 // add tile layers
@@ -35,7 +36,6 @@ var grayscale = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}
     accessToken: API_KEY
 });
 
-
 // create function for marker color
 // use ColorBrewer and code from https://leafletjs.com/examples/choropleth/
 function getColor(mag) {
@@ -48,48 +48,48 @@ function getColor(mag) {
 }
 
 // styling for fault lines
+// source: https://leafletjs.com/examples/geojson/
 var myStyle = {
     "color": "#ff7800",
     "weight": 5,
     "opacity": 0.65
 };
 
+// bringing in fault line data
 // source: https://gis.stackexchange.com/questions/149378/adding-multiple-json-layers-to-leaflet-map
 var tectonic = L.geoJSON(null, {
     style: myStyle
-  });
+});
 
-// Get GeoJSON data and create features.
+// Get GeoJSON data and create features
 // source: https://gis.stackexchange.com/questions/336179/add-more-than-one-layer-of-geojson-data-to-leaflet
 $.getJSON(boundaries_url, function(data) {
     tectonic.addData(data);
 });
 
 d3.json(url, function(response) {
- 
-    console.log(response["features"]);
 
     // plot circle markers based on latitude and longitude from geoJSON
 
     var earthquakes = [];
 
     L.geoJSON(response, {
-        
+        // use point to layer to change marker default to circles
         pointToLayer: function (feature, latlng) {
             
                  return L.circleMarker(latlng, {
+                    //  change radius and color based on earthquake magnitude
                     radius:feature.properties.mag*5,
                     color: getColor(feature.properties.mag),
                     opacity:1,
                     fillOpacity: 0.8
                 })},
+                // bind popup to circles
                 onEachFeature: function (feature, layer) {
                     layer.bindPopup(`Location: ${feature.properties.place}<br>Magnitude: ${feature.properties.mag}`),
                     earthquakes.push(layer)
-                    
                 }
-    
-    })
+    });
 
     // make earthquake markers array into a layer group
     var earthquakeLayer = L.layerGroup(earthquakes);
@@ -112,11 +112,12 @@ d3.json(url, function(response) {
     var myMap = L.map("map", {
             // center of the United States
             center: [39.8, -98.6], 
-            zoom: 5,
-            layers: [street, tectonic]
+            zoom: 4,
+            // default layers 
+            layers: [street, earthquakeLayer]
         });
 
-        // add layer control to the map
+    // add layer control to the map
     L.control.layers(baseMaps, overlayMaps, {collapsed:false}).addTo(myMap);
 
     // Add map legend
@@ -140,6 +141,7 @@ d3.json(url, function(response) {
         return div;
     };
 
+    // add legend to map
     legend.addTo(myMap);
     
 });

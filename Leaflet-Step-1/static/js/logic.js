@@ -1,6 +1,6 @@
 
 
-// choose dataset
+// choose dataset (all eathquakes from the last 7 days)
 var url ="https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
 
 // create map object
@@ -39,10 +39,9 @@ d3.json(url, function(response) {
     L.geoJSON(response, {
         pointToLayer: function (feature, latlng) {
             return L.circleMarker(latlng, {
+                // change circle radius and color based on earthquake magnitude
                 radius: feature.properties.mag*5,
                 color: getColor(feature.properties.mag),
-                // weight: 20,
-                // color: "black",
                 opacity: 1,
                 fillOpacity: 0.8
             });
@@ -52,8 +51,8 @@ d3.json(url, function(response) {
             return (`Location: ${layer.feature.properties.place} <br> Magnitude: ${layer.feature.properties.mag}`);
         }).addTo(myMap);
 
-        // Add map legend
-        // starter code from https://leafletjs.com/examples/choropleth/
+    // Add map legend
+    // starter code from https://leafletjs.com/examples/choropleth/
 
     var legend = L.control({position: 'bottomright'});
 

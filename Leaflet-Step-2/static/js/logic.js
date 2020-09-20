@@ -73,28 +73,10 @@ d3.json(url, function(response) {
 
     var earthquakes = [];
 
-    // L.geoJSON(response, {
-        
-    //     pointToLayer: function (feature, latlng) {
-    //         earthquakes.push(
-    //              L.circleMarker(latlng, {
-    //                 radius:feature.properties.mag*5,
-    //                 color: getColor(feature.properties.mag),
-    //                 opacity:1,
-    //                 fillOpacity: 0.8
-    //             })
-    //             .bindPopup(function (layer) {
-    //                 console.log(`Testing${layer}`);
-    //                 return (`Location: <br> Magnitude: `);
-    //             })
-    //         )
-    //     }
-    // })
-
     L.geoJSON(response, {
         
         pointToLayer: function (feature, latlng) {
-            // earthquakes.push(
+            
                  return L.circleMarker(latlng, {
                     radius:feature.properties.mag*5,
                     color: getColor(feature.properties.mag),
@@ -108,9 +90,6 @@ d3.json(url, function(response) {
                 }
     
     })
-
-  
-   
 
     // make earthquake markers array into a layer group
     var earthquakeLayer = L.layerGroup(earthquakes);
